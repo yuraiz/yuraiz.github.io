@@ -1,0 +1,48 @@
+/**************
+ * Base
+ */
+
+body {
+    /* base colors */
+    background-color: #1a1a1a;
+    color: white;
+
+    /* font styling */
+    font-family: "Noto Sans";
+
+    /* clamp and center */
+    max-width: 750px;
+    padding: 0 16px;
+    margin: 0 auto;
+}
+
+/**************
+ * URL
+ */
+
+a {
+    color: lightskyblue;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:active {
+    opacity: 0.8;
+}
+
+/**************
+ * Code
+ */
+
+pre.giallo {
+    border-radius: 8px;
+    padding: 8px;
+    border-top: solid #2a2a2a 2px;
+    overflow: auto;
+}
+
+code {
+    font-family: "JetBrains Mono";
+    font-size: 13px;
+}
