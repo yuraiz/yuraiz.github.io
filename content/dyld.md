@@ -5,7 +5,7 @@ date = 2026-05-30
 
 I've spent significant time figuring out how to implement thread local inspection support for a debugger on macOS so I hope this article may be helpful for someone.
 
-If you want to understand thread locals from the point of a static linker there's a good [article by Jakub Konka](https://www.jakubkonka.com/2021/01/21/llvm-tls-apple-silicon.html). I'm not currently interested in the Intel macs, so the article touches only Apple Silicon.
+If you want to understand thread locals from the point of a static linker there's a good [article by Jakub Konka](https://www.jakubkonka.com/2021/01/21/llvm-tls-apple-silicon.html). Also, I'm not currently interested in the Intel macs, so the article touches only Apple Silicon.
 
 Let's start with a simple code example:
 
@@ -50,7 +50,7 @@ If we disassemble that address we get the following code:
 
 ![disassembly of the code by the memory address](/dyld/dyld.png)
 
-That's actually the code of `__tlv_get_addr` from dyld, and the source code is [available on github][dyld-asm]. Note that all of the code snippets from dyld and xnu are simplified to include only the ARM64 parts of the code:
+That's actually the code of `__tlv_get_addr` from dyld, and the source code is [available on github][dyld-asm]. Note that all of the code snippets from dyld are simplified to include only the ARM64 parts of the code:
 
 ```
 // Parameters: x0 = descriptor
