@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,6 +16,55 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
 
     <link rel="icon" type="image/png" href="/favicon.svg" />
+
+    <script src="/search_index.en.js"></script>
+
+    <script type="module">
+        import Fuse from '/third-party/fuse.min.mjs'
+
+        const options = {
+            keys: ['title', 'body'],
+        };
+
+        const fuse = new Fuse(window.searchIndex, options);
+
+        const inputBox = document.getElementById('search-box');
+        const resultsContainer = document.getElementById('search-results');
+
+        // make search results act on press, to avoid removing of the items
+        resultsContainer.onmousedown = (event) => {
+            const link = event.target.closest('a');
+            if (link) {
+                window.location.href = link.href;
+            }
+
+            event.preventDefault();
+        };
+
+        // search for the items
+        inputBox.oninput = (event) => {
+            const results = fuse.search(event.target.value);
+
+            const nodes = results.filter(({ item }) => document.URL != item.url).map(({ item }) => {
+                const li = document.createElement('li');
+
+                const a = document.createElement('a');
+                a.href = item.url;
+                a.textContent = item.title;
+
+                li.appendChild(a);
+                return li;
+            });
+
+            resultsContainer.replaceChildren(...nodes);
+        }
+
+        inputBox.onfocus = inputBox.oninput;
+
+        inputBox.onblur = (event) => {
+            resultsContainer.replaceChildren();
+        }
+    </script>
 </head>
 
 <body>
@@ -23,6 +73,10 @@
             <h1>Yuri Izmer</h1>
             <p>New Babylon</p>
         </a>
+        <div class="search-wrapper">
+            <input type="text" id="search-box" placeholder="Search...">
+            <ul id="search-results"></ul>
+        </div>
     </header>
     <section class="section">
         <div class="container">

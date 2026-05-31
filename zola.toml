@@ -10,5 +10,8 @@ title = "New Babylon"
 [markdown.highlighting]
 theme = "min-dark"
 
+[search]
+index_format = "fuse_javascript"
+
 [extra]
 # Put all your custom variables here
